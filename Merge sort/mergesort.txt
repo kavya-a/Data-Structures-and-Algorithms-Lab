@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<math.h>
+
+void sort(int array[],int min,int max)
+{
+	int mid;
+	
+	if(min<max)
+	{
+		mid = (min + max)/2;
+		sort(array,min,mid) ;
+		sort(array,mid+1,max);
+		merge(array,min,mid,max);
+	}
+}
+
+void merge(int array[],int min, int mid, int max)
+{
+	int temp[30];
+	int i,j,k,m;
+	
+	j=min;
+	m=mid+1;
+	
+	for(i=min;j<=mid && m<=max;i++)
+	{
+		if(array[j]<=array[m])
+		{
+			temp[i]=array[j];
+			j++;
+		}
+		else
+		{
+			temp[i]=array[m];
+			m++;
+		}
+	}
+	
+	if(j>mid)
+	{
+		for(k=m;k<=max;k++)
+		{
+			temp[i]=array[k];
+			i++;
+		}
+	}
+	
+	else
+	{
+		for(k=j;k<=mid;k++)
+		{
+			temp[i]=array[k];
+			i++;
+		}
+	}
+	
+	for(k=min;k<=max;k++)
+	    array[k]=temp[k];
+	
+
+	
+}
+void exch(int array[], int num1 , int num2)
+{
+        int swap = array[num1];
+	    array[num1] = array[num2];
+	    array[num2] = swap;
+}
+
+main()
+{
+    int array[50],length,i,j;
+
+    printf("Enter length of the array: ");
+    scanf("%d",&length);
+    for(i=0;i<length;i++)
+    {
+        printf("\n\nEnter element:  ");
+        scanf("%d",&array[i]);
+        printf("\n");
+    }
+
+    printf("\n\nBefore sorting:  ");
+    for(i=0;i<length;i++)
+        printf("%d  ",array[i]);
+
+    sort(array,0,length-1);
+
+    printf("\n\nAfter sorting:  ");
+    for(i=0;i<length;i++)
+        printf("%d  ",array[i]);
+
+    printf("\n\n");
+
+
+}
